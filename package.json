@@ -8,6 +8,8 @@
     "node-fetch": "^3.3.2"
   },
   "scripts": {
-    "test": "node --use-openssl-ca index.js"
+    "openssl": "node --use-openssl-ca index.js",
+    "unsafe": "set OPENSSL_CONF=c:\\Users\\matti\\repos\\cert-store-test\\openssl-unsafe.config && node index.js",
+    "normal": "node index.js"
   }
 }
