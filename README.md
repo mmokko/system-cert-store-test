@@ -10,7 +10,7 @@
 * How to use OpenSSL object inside node code?
 * Is it possible to enable the OpenSSL object to use system certificate store?
 * Can we export the system certs from OpenSSL if they are in use?
-* We can then inject them to the https.agent created in the dev-tools-commons
+* We can then inject them to the https.agent
 
 ## What OpenSSL version there is in Nodejs
 Nodejs18 uses OpenSSL version: openssl-3.0.2+quic (protocol made by google: Quick UDP Internet Connections).
@@ -20,9 +20,11 @@ Default minimum TLS version is TLSv1.2, default maximum is TLSv1.3. TLSv1 and TL
 ## Options
 
 ### Node OpenSSL variables
-Node has an option to use OpenSSL CA: --use-openssl-ca, but OpenSSL by default doesn't use system cert store.
+Node has an option to use OpenSSL CA: --use-openssl-ca, but OpenSSL by default doesn't use system cert store. There will be a support for it in OpenSSL 3.2, but the feature will be behind an environment flag.
 
 Node has also an option: https://nodejs.org/docs/latest-v18.x/api/cli.html#--openssl-configfile, where the OpenSSL configuration can be provided: https://www.openssl.org/docs/man3.0/man5/config.html
+
+The --openssl-config runtime flag or environment variable OPENSSL_CONF, doesn't seem to take the config into use. There is an added OpenSSL config in the repo, openssl-unsafe.config, that sets max tls version to 1.1, which should be rejected. But connections are still working. Run: `yarn unsafe` to test. So far haven't found a way to get node18 to use this config and the documentation doesn't state that anything else is required.
 
 #### Example OpenSSL configuration (made by openAI)
 ```
